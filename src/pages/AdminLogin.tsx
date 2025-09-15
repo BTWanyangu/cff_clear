@@ -51,7 +51,7 @@ export default function AdminLogin() {
 
   return (
     <Shell>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50/70 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50/70 flex items-center justify-center rounded-xl p-4">
         <div className="w-full max-w-md">
           <Card className="backdrop-blur-sm bg-white/95 border border-gray-200 shadow-xl rounded-xl overflow-hidden">
             <div className="p-8">
