@@ -1,15 +1,38 @@
 {
   "hosting": {
     "public": "dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
-      { "source": "/sendReportEmail", "function": "sendReportEmail" },
-      { "source": "**", "destination": "/index.html" }
+      {
+        "source": "/sendReportEmail",
+        "function": "sendReportEmail"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   },
-  "functions": {
-    "source": "functions"
-  },
+  "functions": [
+    {
+      "source": "functions-clear",
+      "codebase": "functions",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+       "predeploy": [
+       "npm --prefix \"$RESOURCE_DIR\" run build"
+    	 ]
+    }
+  ],
   "firestore": {
     "rules": "firestore.rules"
   },
@@ -17,5 +40,3 @@
     "rules": "storage.rules"
   }
 }
-
-
