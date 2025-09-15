@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import  { useEffect, useState, useMemo } from "react";
 import Shell from "../components/Shell";
 import { Card, Button, Input, Select } from "../components/UI";
 import { auth, db } from "../firebase";
@@ -6,6 +6,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, query, orderBy, onSnapshot, doc, getDoc, setDoc } from "firebase/firestore";
 import { parseContaminantValues } from "../utils/parsers";
 import { computeClearScore, computeWaterMainScore } from "../utils/scoring";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null);
@@ -15,6 +16,7 @@ export default function AdminDashboard() {
   const [customer, setCustomer] = useState<any | null>(null);
   const [waterMain, setWaterMain] = useState({ ageYears: 40, material: "cast_iron", upgradedPct: 10 });
   const limits = { "Lead (ppm)": 0.015, "Copper (ppm)": 1.3, "Nitrate (ppm)": 10, "Arsenic (ppb)": 10, "PFOA (ppt)": 4, "PFOS (ppt)": 4, "pH": 8.5 };
+  const navigate=useNavigate()
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -26,13 +28,37 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const q = query(collection(db, "reports"), orderBy("createdAt", "desc"));
-    const unsub = onSnapshot(q, (snap) => {
+    const unsub = onSnapshot(q, async(snap) => {
       const rows: any[] = [];
-      snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+      const customerIds=new Set<string>()
+
+      snap.forEach(d=>{
+          // const reportData={id:d.id, ...d.data()}
+          //  rows.push(reportData)
+       const data=d.data()
+       rows.push({id:d.id,...data})
+    //TODO: Ensure that the the reportData.id works with the customer id not report id
+    if(data.customerId){
+      customerIds.add(data.customerId)
+    }
+      })
+    // snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
       setReports(rows);
+
+    
     });
     return () => unsub();
   }, []);
+
+  const handleSignOut=async()=>{
+    try{
+      await signOut(auth)
+      navigate("/admin/login")
+    }catch(error){
+      console.error("Error signing out:",error)
+    }
+    
+  }
 
   async function openReport(r: any) {
     setSelected(r);
@@ -77,7 +103,7 @@ export default function AdminDashboard() {
       <div className="mb-4 flex items-center gap-3">
         <h1 className="text-xl font-semibold">Admin Dashboard</h1>
         <div className="flex-1" />
-        <Button onClick={() => signOut(auth)}>Sign out</Button>
+        <Button onClick={handleSignOut}>Sign out</Button>
       </div>
 
       {!selected ? (
@@ -85,7 +111,11 @@ export default function AdminDashboard() {
           <div className="overflow-auto">
             <table className="w-full text-sm">
               <thead className="text-left text-neutral-400">
-                <tr><th className="p-2">When</th><th className="p-2">Customer</th><th className="p-2">File</th></tr>
+                <tr>
+                  <th className="p-2">When</th>
+                  <th className="p-2">Customer</th>
+                  <th className="p-2">File</th>
+                  </tr>
               </thead>
               <tbody>
                 {reports.map(r => (
@@ -174,3 +204,5 @@ export default function AdminDashboard() {
     </Shell>
   );
 }
+
+

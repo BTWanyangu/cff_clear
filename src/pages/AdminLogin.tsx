@@ -24,7 +24,7 @@ export default function AdminLogin() {
   return (
     <Shell>
       <div className="mx-auto max-w-sm">
-        <Card title="Admin Login" subtitle="Private access only">
+        <Card title="Admin Login">
           <form onSubmit={submit} className="grid gap-3">
             <Input label="Email" value={email} onChange={(e:any)=>setEmail(e.target.value)} />
             <Input label="Password" type="password" value={password} onChange={(e:any)=>setPassword(e.target.value)} />
