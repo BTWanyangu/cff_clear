@@ -49,7 +49,7 @@ export function Select({ label, children, ...props }: any) {
   return (
     <label className="grid gap-1 text-sm">
       <span className="text-neutral-300">{label}</span>
-      <select className="rounded-xl border border-neutral-700 bg-transparent px-3 py-2 outline-none" {...props}>
+      <select className="rounded-3xl border border-neutral-700 bg-white px-3 py-2 outline-none" {...props}>
         {children}
       </select>
     </label>

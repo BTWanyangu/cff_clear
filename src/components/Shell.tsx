@@ -20,7 +20,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <main className="mx-auto max-w-6xl">{children}</main>
 
       <footer className="mt-12 text-center text-sm text-neutral-400">
-        © {new Date().getFullYear()} CFF C.L.E.A.R. — Private admin access only.
+        © {new Date().getFullYear()} CFF C.L.E.A.R. — <Link className="underline hover:text-blue-500" to="/admin/login">Private admin access only.</Link>
       </footer>
     </div>
   );
