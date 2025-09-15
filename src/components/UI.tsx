@@ -1,13 +1,34 @@
 // src/components/UI.tsx
 import React from "react";
 
-export function Card({ title, children }: { title?: string;  children: React.ReactNode }) {
+// export function Card({ title, children }: { title?: string;  children: React.ReactNode }) {
+//   return (
+//     <div className="glass p-6">
+//       {title && (
+//         <div className="mb-4">
+//           <h3 className="text-lg font-semibold text-amber-300">{title}</h3>
+          
+//         </div>
+//       )}
+//       <div>{children}</div>
+//     </div>
+//   );
+// }
+
+export function Card({
+  title,
+  children,
+  className = "",
+}: {
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="glass p-6">
+    <div className={`glass p-6 ${className}`}>
       {title && (
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-amber-300">{title}</h3>
-          
         </div>
       )}
       <div>{children}</div>
