@@ -3,7 +3,7 @@ import React from "react";
 
 export function Card({ title, children }: { title?: string;  children: React.ReactNode }) {
   return (
-    <div className="glass p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative">
       {title && (
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-amber-300">{title}</h3>
@@ -28,7 +28,7 @@ export function Select({ label, children, ...props }: any) {
   return (
     <label className="grid gap-1 text-sm">
       <span className="text-neutral-300">{label}</span>
-      <select className="rounded-xl border border-neutral-700 bg-transparent px-3 py-2 outline-none" {...props}>
+      <select className="rounded-3xl border border-neutral-700 bg-white px-3 py-2 outline-none" {...props}>
         {children}
       </select>
     </label>
