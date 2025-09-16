@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "cff-clear-system"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

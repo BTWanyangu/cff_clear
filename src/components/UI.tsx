@@ -25,7 +25,7 @@ export function Card({
   className?: string;
 }) {
   return (
-    <div className={`glass p-6 ${className}`}>
+    <div className={`bg-neutral-700 p-6 ${className}`}>
       {title && (
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-amber-300">{title}</h3>

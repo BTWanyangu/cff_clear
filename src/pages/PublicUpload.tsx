@@ -69,7 +69,7 @@ export default function PublicUpload() {
   if (done) {
     return (
       <Shell>
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50/30 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-white flex items-center justify-center p-6">
           <div className="max-w-md w-full">
             <Card className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
               <div className="text-center">
@@ -96,8 +96,7 @@ export default function PublicUpload() {
 
   return (
     <Shell>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50/30 p-6">
-        <div className="max-w-3xl mx-auto">
+      <div className="min-h-screen bg-white flex items-center justify-center rounded-xl p-4">        <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-1">Water Quality Report Upload</h1>
@@ -184,7 +183,6 @@ export default function PublicUpload() {
                 />
                 <label htmlFor="file-upload" className="cursor-pointer">
                   <svg className="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                   </svg>
                   <p className="text-sm text-gray-600 mb-1">
                     {file ? file.name : "Click to upload water report (PDF or image)"}
@@ -216,3 +214,4 @@ export default function PublicUpload() {
     </Shell>
   );
 }
+
