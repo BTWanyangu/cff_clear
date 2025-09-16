@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
+import { sendReportEmail } from "./SendReportEmail";
 
-export const sendReportEmail = functions.https.onRequest((req, res) => {
-  res.send("Email function works!");
-});
 
+// Deploy as HTTPS function
+export const sendReportEmailFn = functions.https.onRequest(sendReportEmail);
