@@ -8,9 +8,61 @@ import { auth, db, storage } from "../firebase";
 import { signInAnonymously } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Upload } from "lucide-react"
 
-const STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
+const STATES = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming"
+];
 export default function PublicUpload() {
   const [form, setForm] = useState({
     firstName: "", lastName: "", street: "", suite: "", city: "", state: "", zip: "", email: "", phone: ""
@@ -96,7 +148,8 @@ export default function PublicUpload() {
 
   return (
     <Shell>
-      <div className="min-h-screen bg-white flex items-center justify-center rounded-xl p-4">        <div className="max-w-3xl mx-auto">
+      <div className="min-h-screen  bg-gradient-to-br from-blue-50 to-cyan-50/30 flex items-center justify-center rounded-xl p-4">       
+         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-1">Water Quality Report Upload</h1>
@@ -140,14 +193,9 @@ export default function PublicUpload() {
                 onChange={(e:any)=>setForm({...form, city:e.target.value})}
           
               />
-              <Select 
-                label="State" 
-                value={form.state} 
-                onChange={(e:any)=>setForm({...form, state:e.target.value})}
-          
-              >
-                {STATES.map(s => <option key={s} value={s}>{s}</option>)}
-              </Select>
+             <Select label="State" value={form.state} onChange={(e:any)=>setForm({...form, state:e.target.value})} > {STATES.map(s => <option key={s} value={s}>{s}</option>)} </Select>
+              
+
               <Input 
                 label="Zip Code" 
                 value={form.zip} 
@@ -182,8 +230,7 @@ export default function PublicUpload() {
                   className="hidden"
                 />
                 <label htmlFor="file-upload" className="cursor-pointer">
-                  <svg className="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  </svg>
+                  <Upload className="w-12 h-12 text-gray-600 mx-auto mb-3" />
                   <p className="text-sm text-gray-600 mb-1">
                     {file ? file.name : "Click to upload water report (PDF or image)"}
                   </p>

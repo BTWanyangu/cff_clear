@@ -6,7 +6,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="bg-white border-b border-blue-600">
+      <header className="bg-white/50 backdrop-blur-md border-b sticky top-0 z-50 border-blue-600">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           {/* Logo + Title */}
           <Link to="/" className="flex items-center gap-2">
