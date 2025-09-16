@@ -66,6 +66,8 @@ export default function AdminDashboard() {
     return () => unsub();
   }, []);
 
+  console.log(customer);
+
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -182,7 +184,7 @@ export default function AdminDashboard() {
 
   return (
     <Shell>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50/30">
+      <div className="min-h-screen rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50/30">
         {!selected ? (
           <div className="space-y-8 p-6">
             {/* Header */}
@@ -274,7 +276,7 @@ export default function AdminDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {reports.map((r, index) => (
+                      {reports.map((r) => (
                         <tr 
                           key={r.id} 
                           className="border-b border-gray-100 cursor-pointer hover:bg-blue-50 transition-colors"
