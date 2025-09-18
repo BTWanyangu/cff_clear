@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import fetch from "node-fetch";
 import PDFDocument from "pdfkit";
-import buffer from "get-stream";
+import getStream from "get-stream";
 import { PassThrough } from "stream";
 import cors from "cors";
 import * as functions from "firebase-functions";
@@ -39,7 +39,8 @@ export const sendReportEmail = functions.https.onRequest((req, res) => {
       if (!reportDoc.exists) throw new Error("Report not found");
 
       const data = reportDoc.data();
-      const text = data?.text;
+      const text = data?.extractedText;
+;
 
       if (!text) throw new Error("Report has no text content");
 
@@ -54,7 +55,8 @@ export const sendReportEmail = functions.https.onRequest((req, res) => {
       pdfDoc.end();
 
       // Convert stream → Buffer
-      const pdfBuffer = await buffer(stream);
+
+      const pdfBuffer: Buffer = await (getStream as unknown as { buffer: (s: NodeJS.ReadableStream) => Promise<Buffer> }).buffer(stream);
 
       // 3. Send with Trigger Email
       const response = await fetch("https://api.triggermail.io/send", {
@@ -70,7 +72,7 @@ export const sendReportEmail = functions.https.onRequest((req, res) => {
           attachments: [
             {
               filename: `Report_${reportId}.pdf`,
-              content: pdfBuffer.toString(),
+              content: pdfBuffer.toString("base64"),
               encoding: "base64",
               type: "application/pdf",
               disposition: "attachment",
@@ -85,7 +87,7 @@ export const sendReportEmail = functions.https.onRequest((req, res) => {
 
       res.json({ success: true });
     } catch (err: any) {
-      console.error("Email error:", err);
+      console.error("Email error:", err.message,err.stack);
       res.status(500).json({ error: err.message });
     }
   });

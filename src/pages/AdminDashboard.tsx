@@ -80,10 +80,10 @@ export default function AdminDashboard() {
   async function openReport(r: any) {
     setSelected(r);
     if (r.customer) {
-      setCustomer(r.customer);
+      setCustomer({...r.customer,reportId:r.id});
     } else {
       const c = await getDoc(doc(db, "customers", r.customerId));
-      setCustomer({ id: c.id, ...(c.data() as any) });
+      setCustomer({ id: c.id, reportId: r.id, ...(c.data() as any) });
     }
 
     const parsed = r.parsedValues || parseContaminantValues(r.extractedText || "");
@@ -108,11 +108,12 @@ export default function AdminDashboard() {
         body: JSON.stringify({
           to: customer.email,
           subject: `CFF CLEAR Report for ${customer.firstName} ${customer.lastName}`,
-          text: `Dear ${customer.firstName},\n\nAttached is your CFF CLEAR Report.\n\nRegards,\nCFF Team`,
+          // text: `Dear ${customer.firstName},\n\nAttached is your CFF CLEAR Report.\n\nRegards,\nCFF Team`,
           reportId: customer.reportId
 
         })
       });
+      console.log("reportId", customer.reportId);
       // alert("Email sent successfully!");
     } catch (e: any) {
       alert("Email failed: " + e?.message);
