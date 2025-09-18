@@ -102,13 +102,12 @@ export default function AdminDashboard() {
     
     setIsEmailSending(true);
     try {
-      await fetch("https://sendreportemailfn-uwamcgnufq-uc.a.run.app", {
+      await fetch("https://sendreportemailfn-uwamcgnufq-uc.a.run.app/sendReportEmailFn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           to: customer.email,
           subject: `CFF CLEAR Report for ${customer.firstName} ${customer.lastName}`,
-          text: `Dear ${customer.firstName},\n\nAttached is your CFF CLEAR Report.\n\nRegards,\nCFF Team`,
           reportId: customer.reportId
 
         })
